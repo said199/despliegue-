@@ -16,11 +16,11 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
+    public fb: FormBuilder,
+    public http: HttpClient,
+    public sanitizer: DomSanitizer,
     ){}
-    private baseUrl:string = environment.baseUrl;
+    public baseUrl:string = environment.baseUrl;
 
     frm = this.fb.group({
       nombre:       ['', Validators.required],
@@ -55,13 +55,12 @@ export class AppComponent implements OnInit {
         const headers = new HttpHeaders();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
-
         this.http.post(`${this.baseUrl}/usuario`,formData, {headers: headers});
       })
     }
 
 
-    capturarArchivo(e: any){
+    capturarArchivo(e: any): void{
       const archivo = e.target.files[0];
       this.extraerBase64(archivo).then((imagen: any) => {
         this.previsualizacion = imagen.base;
